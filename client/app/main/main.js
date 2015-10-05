@@ -6,5 +6,9 @@ angular.module('basejumpsApp')
       .when('/', {
         templateUrl: 'app/main/main.html',
         controller: 'MainCtrl'
+      })
+      .when('/:username/:query', {
+        templateUrl: 'app/main/main.html',
+        controller: 'MainCtrl'
       });
   });

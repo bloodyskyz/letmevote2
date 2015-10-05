@@ -21,6 +21,9 @@
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
     background: #4393B9;
 }
+.glyphicon{
+    margin:0;
+}
 
 .footer {
     text-align: center;
@@ -32,3 +35,120 @@
 .navbar-text {
     margin-left: 15px;
 }
+
+body{
+    font-size:14px;
+}
+button{
+    border-radius: 5px;
+    border: solid;
+    border-width: 1px;
+    padding: 10px 16px;
+    font-size: 18px;
+}
+
+.new-polls{
+    background: #5cb85c;
+    height:50px;
+    border-color:#4cae4c;
+
+}
+
+.my-polls{
+    background: #428bca;
+    height:50px;
+    border-color:#357ebd;
+
+}
+
+
+.form-container{
+    text-align: center;
+}
+span{
+    display:block;
+    margin: 15px;
+    font-weight:700;
+}
+input{
+    display:block;
+    margin: 0px auto;
+    padding:5px 10px;
+    width: 350px;
+    border-radius:5px;
+}
+.form-btn{
+    width:150px;
+    font-size: 14px;
+    padding:10px;
+    margin-top:10px;
+    border: solid;
+    border-width: 1px;
+    font-weight:400;
+}
+.more-options{
+    margin-top:20px;
+    border-color:#ccc;
+}
+
+.congratulation{
+    text-align:center;
+    font-size: 18px;
+}
+
+#graph{
+    margin: 20px auto;
+    width:600px;
+}
+
+#mypollname{
+    display:inline-block;
+    width: 200px;
+    border:solid;
+    border-width: 1px;
+    border-color:#ccc;
+    margin: 0px 5px;
+
+}
+#vote{
+    text-align:center;
+}
+
+#queryinfo{
+    display:block;
+    margin-top: 40px;
+    font-size:20px;
+}
+
+#vote-container{
+    display:block;
+
+    width:250px;
+    margin:20px auto;
+    text-align:left;
+}
+
+label{
+    font-weight:500;
+    padding-top:10px;
+    padding-left:20px;
+    display:block;
+    border:solid;
+    border-width:1px;
+    border-color:#ccc;
+    height:40px;
+    margin:0;
+}
+
+.radio-btn{
+    display:inline-block;
+    width: 30px;
+}
+
+#vote-submit{
+    width:100px;
+    margin: 20px 78px;
+    font-size: 18px;
+}
+
+

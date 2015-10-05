@@ -1,14 +1,21 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<header class="hero-unit" id="banner">
-  <div class="container">
-    <h1>'Allo, 'Allo!</h1>
-    <p class="lead">Kick-start your next web app with Angular Fullstack</p>
+
+<div class="hero-unit" id="banner">
+  <div class="container" ng-hide="isLoggedIn()">
+    <h1>Let Me Vote{{la}}!!</h1>
+    <p class="lead">Create, share, and manage poles instantly</p>
     <img src="assets/images/yeoman.png" alt="I'm Yeoman">
   </div>
-</header>
+  <div ng-show="isLoggedIn()">
+    <h1>Dashboard</h1>
+    <p class="lead">What would you like to do today?</p>
+    <button class="new-polls btn-success" ng-click="page='createPoll'">New Polls</button>
+    <button class="my-polls btn-primary" ng-click="page='myPoll'">My Polls</button>
+  </div>
+</div>
 
-<div class="container">
+<div class="container" ng-hide="isLoggedIn()">
   <div class="row">
     <div class="col-lg-12">
       <h1 class="page-header">Features:</h1>
@@ -18,6 +25,54 @@
     </div>
   </div>
 </div>
+
+<div ng-show="isLoggedIn()">
+  <div class="form-container" ng-show="page==='createPoll'" ng-submit="addPoll()">
+    <form name="newpoll" novalidate>
+      <h2>New Poll</h2>
+      <span>Name your poll.</span>
+      <input type="text" ng-model="newPoll.name" placeholder="What is your favorite brand?" required></input>
+      <span>Options</span>
+      <input ng-repeat="option in optionElems track by $index" ng-model="pollOptions[$index]" placeholder="{{option}}" type="text" required>
+      <button ng-click="addOption()" class="form-btn btn-default more-options">More Options</button>
+      <input class="form-btn btn-success" type="submit" ng-disabled="newpoll.$invalid" disabled="disabled">
+    </form>
+  </div>
+
+  <div class="congratulation" ng-show="page==='myPoll'">
+    <h1>My Polls!</h1>
+    <div ng-repeat="poll in polls">
+      <div id="mypollname" ng-click="graph(poll)">{{poll.name}}</div>
+      <button class="btn btn-danger" ng-click="deletePoll(poll)">Delete</button>
+    </div>
+  </div>
+
+  <div class="congratulation" ng-show="page==='postedPoll'">
+    <h1>Congratulations!</h1>
+    <span>
+    <p>Your poll has been posted to: </br>
+      <a href="https://letmevote2.herokuapp.com/{{newPoll.username}}/{{newPoll.name}}"> https://letmevote2.herokuapp.com/{{newPoll.username}}/{{newPoll.name}}</a>
+    </p>
+  </div>
+
+  <div id="graph" ng-show="page==='graph'"></div> 
+
+  <div id="vote" ng-show="page==='vote'">
+    <div id="queryinfo">
+      <h1>{{voteObj.name}}</h1>
+      <div id="author">by {{voteObj.username}}</div>
+    </div>
+    <form id="vote-container" name="voteForm" ng-submit="voteSubmit()">
+      <label ng-repeat="(option,value) in voteObj.polls">
+        <input class="radio-btn" type="radio" name="poleoptions" ng-model="$parent.select" ng-value="option">{{option}}
+      </label>
+      <button class="btn btn-success" id="vote-submit" type="submit">Submit</button>
+    </form>
+
+
+  </div> 
+</div>
+
 
 <footer class="footer">
   <div class="container">
