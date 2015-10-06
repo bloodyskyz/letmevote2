@@ -3,15 +3,14 @@
 
 <div class="hero-unit" id="banner">
   <div class="container" ng-hide="isLoggedIn()">
-    <h1>Let Me Vote{{la}}!!</h1>
-    <p class="lead">Create, share, and manage poles instantly</p>
-    <img src="assets/images/yeoman.png" alt="I'm Yeoman">
+    <h1>Let Me Vote!!</h1>
+    <p class="lead">Create, share, and manage polls instantly</p>
   </div>
   <div ng-show="isLoggedIn()">
     <h1>Dashboard</h1>
     <p class="lead">What would you like to do today?</p>
-    <button class="new-polls btn-success" ng-click="page='createPoll'">New Polls</button>
-    <button class="my-polls btn-primary" ng-click="page='myPoll'">My Polls</button>
+    <button class="new-polls btn-success" ng-click="changeView('createPoll')">New Polls</button>
+    <button class="my-polls btn-primary" ng-click="changeView('myPoll')">My Polls</button>
   </div>
 </div>
 
@@ -27,21 +26,21 @@
 </div>
 
 <div ng-show="isLoggedIn()">
-  <div class="form-container" ng-show="page==='createPoll'" ng-submit="addPoll()">
+  <div class="form-container" ng-show="page==='createPoll'">
     <form name="newpoll" novalidate>
       <h2>New Poll</h2>
       <span>Name your poll.</span>
-      <input type="text" ng-model="newPoll.name" placeholder="What is your favorite brand?" required></input>
+      <input type="text" ng-model="newPoll.name" placeholder="What is your favorite brand?" required>
       <span>Options</span>
       <input ng-repeat="option in optionElems track by $index" ng-model="pollOptions[$index]" placeholder="{{option}}" type="text" required>
       <button ng-click="addOption()" class="form-btn btn-default more-options">More Options</button>
-      <input class="form-btn btn-success" type="submit" ng-disabled="newpoll.$invalid" disabled="disabled">
+      <input class="form-btn btn-success" type="submit" ng-click="addPoll()" ng-disabled="newpoll.$invalid" disabled="disabled">
     </form>
   </div>
 
   <div class="congratulation" ng-show="page==='myPoll'">
     <h1>My Polls!</h1>
-    <div ng-repeat="poll in polls">
+    <div ng-repeat="poll in mypolls">
       <div id="mypollname" ng-click="graph(poll)">{{poll.name}}</div>
       <button class="btn btn-danger" ng-click="deletePoll(poll)">Delete</button>
     </div>

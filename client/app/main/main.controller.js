@@ -1,5 +1,7 @@
 'use strict';
 
+
+
 var template = {};
 angular.module('basejumpsApp')
   .controller('MainCtrl', function ($scope, Auth, User, $http, $routeParams) {
@@ -9,10 +11,11 @@ angular.module('basejumpsApp')
     $scope.pollOptions = [];
     $scope.page = 'createPoll';
     $scope.params = $routeParams;
+    $scope.mypolls = [];
 
     function searchQuery(){
       if($routeParams.username !== null && $routeParams.query !== null){
-        console.log($scope.polls);
+        //console.log($scope.polls);
 
         for(var i in $scope.polls){
           var query = $scope.polls[i].name.replace(/[?]/g,'');
@@ -26,6 +29,10 @@ angular.module('basejumpsApp')
         }
       }
     }
+    $scope.changeView = function(page){
+      window.history.pushState("string", "title", "");
+      $scope.page=page;
+    };
 
     $scope.voteSubmit = function(){
       $scope.voteObj.polls[$scope.select] += 1;
@@ -44,6 +51,12 @@ angular.module('basejumpsApp')
     function getPolls(){
       $http.get('/api/polls').success(function(polls) {
         $scope.polls = polls;
+        var user = Auth.getCurrentUser().name;
+        $scope.mypolls=[];
+        for(var i in polls){
+          if(polls[i].username === user)
+            $scope.mypolls.push(polls[i]);
+        }
         searchQuery();
 
       });
@@ -66,8 +79,9 @@ angular.module('basejumpsApp')
         $scope.newPoll.polls[$scope.pollOptions[i]] = 0; 
       }
       $scope.newPoll.username = Auth.getCurrentUser().name;
-      console.log($scope.newPoll);
+      //console.log($scope.newPoll);
       $http.post('/api/polls', $scope.newPoll );
+      getPolls();
       $scope.page = 'postedPoll';
     };
 
